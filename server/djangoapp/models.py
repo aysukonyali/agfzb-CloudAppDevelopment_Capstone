@@ -80,7 +80,7 @@ class DealerReview:
         self.dealership = dealership
         self.review = review
         self.purchase = purchase
-        self.setiment = sentiment
+        self.sentiment = sentiment
         self.purchase_date = ""
         self.purchase_make = ""
         self.purchase_model = ""
