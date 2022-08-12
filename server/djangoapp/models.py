@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.timezone import now
-
+from django.core import serializers 
+import uuid
+import json
 
 # Create your models here.
 
@@ -26,9 +28,12 @@ class CarMake(models.Model):
 # - Any other fields you would like to include in car model
 # - __str__ method to print a car make object
 class CarModel(models.Model):
-    model = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    model = models.ForeignKey(CarMake, null=False, on_delete=models.CASCADE)  
+    # - Many-To-One relationship to Car Make model (One Car Make has many Car Models, using ForeignKey field)
     name = models.CharField(null=False, max_length=40, default='undefined')
-    dealerId = models.IntegerField(default=0)
+    # - Name
+    dealerId = models.IntegerField(default=0)     
+    # - Dealer id, used to refer a dealer created in cloudant database
     SEDAN = 'Sedan'
     SUV= 'Suv'
     WAGON = 'Wagon'
@@ -43,7 +48,7 @@ class CarModel(models.Model):
         choices=TYPE_CHOICES,
         default=SEDAN
     ) 
-    year = models.DateField(null=True)
+    year =  models.DateField(null=True)
     def __str__(self):
         return self.type
 
